@@ -39,6 +39,8 @@ app.MapPost("/users", (User user) => {
         return Results.BadRequest("The user-id is already taken.");
     }
     db.Users.Add(user);
+    db.SaveChanges();
+
     return Results.Created($"/users/{user.Id}", user);
     });
 
@@ -46,13 +48,17 @@ app.MapPut("/users/{id}", (int id, User updatedUser) => {
     var user = db.Users.FirstOrDefault(u => u.Id == id);
     if (user is null) return Results.NotFound("The user was not found");
     user.Name = updatedUser.Name;
+    db.SaveChanges();
+    
     return Results.Ok();
-    });
+});
 
 app.MapDelete("/users/{id}", (int id) => {
     var user = db.Users.FirstOrDefault(u => u.Id == id);
 
     db.Users.Remove(user);
+    db.SaveChanges();
+
     return Results.Ok(id);
     });
 
@@ -66,20 +72,27 @@ app.MapPost("/products", (Product product) => {
         return Results.BadRequest("The product id is already taken.");
     }
     db.Products.Add(product);
+    db.SaveChanges();
+
     return Results.Created($"/users/{product.Id}", product);
     });
 
 app.MapPut("/product/{id}", (int id, Product updatedProduct) => {
     var product = db.Products.FirstOrDefault(p => p.Id == id);
     if (product is null) return Results.NotFound("The user was not found");
+    
     product.Name = updatedProduct.Name;
+    db.SaveChanges();
+    
     return Results.Ok();
-    });
+});
 
 app.MapDelete("/product/{id}", (int id) => {
     var product = db.Products.FirstOrDefault(u => u.Id == id);
 
     db.Products.Remove(product);
+    db.SaveChanges();
+
     return Results.Ok(id);
     });
 
