@@ -30,8 +30,13 @@ if (app.Environment.IsDevelopment())
 }
 
 // Users
-app.MapGet("/users", () => "Hello World!");
-app.MapGet("/users/{id}", (int id) => id);
+app.MapGet("/users", () => {
+    db.Users.ToList();
+});
+app.MapGet("/users/{id}", (int id) => {
+    var user = db.Users.FirstOrDefault(u => u.Id == id);
+    return user;
+});
 
 app.MapPost("/users", (User user) => {
     if (db.Users.Any(u => u.Id == user.Id))
@@ -56,9 +61,13 @@ app.MapDelete("/users/{id}", (int id) => {
     return Results.Ok(id);
     });
 
-//Product
-app.MapGet("/products", () => "Hello World!");
-app.MapGet("/products/{id}", (int id) => "Hello World!");
+//Orders
+app.MapGet("/products", () => {  
+    db.Users.ToList();
+});
+app.MapGet("/products/{id}", (int id) => { 
+    var product = db.Products.FirstOrDefault(p => p.Id == id);
+});
 
 app.MapPost("/products", (Product product) => {
     if(db.Products.Any(p => p.Id == product.Id)) 
@@ -83,5 +92,66 @@ app.MapDelete("/product/{id}", (int id) => {
     return Results.Ok(id);
     });
 
+//Orders
+app.MapGet("/orders", () => {  
+    db.Orders.ToList();
+});
+app.MapGet("/orders/{id}", (int id) => { 
+    var product = db.Orders.FirstOrDefault(p => p.Id == id);
+});
+
+app.MapPost("/orders", (Order order) => {
+    if(db.Orders.Any(o => o.Id == order.Id)) 
+    {
+        return Results.BadRequest("The order id is already taken.");
+    }
+    db.Orders.Add(order);
+    return Results.Created($"/users/{order.Id}", order);
+    });
+
+app.MapPut("/orders/{id}", (int id, Order updatedOrder) => {
+    var order = db.Orders.FirstOrDefault(o => o.Id == id);
+    if (order is null) return Results.NotFound("The order was not found");
+    order.Id = updatedOrder.Id;
+    return Results.Ok();
+    });
+
+app.MapDelete("/orders/{id}", (int id) => {
+    var order = db.Orders.FirstOrDefault(o => o.Id == id);
+
+    db.Orders.Remove(order);
+    return Results.Ok(id);
+    });
+
+//Category
+app.MapGet("/categories", () => {  
+    db.Categories.ToList();
+});
+app.MapGet("/categories/{id}", (int id) => { 
+    var category = db.Categories.FirstOrDefault(c => c.Id == id);
+});
+
+app.MapPost("/categories", (Category category) => {
+    if(db.Categories.Any(c => c.Id == category.Id)) 
+    {
+        return Results.BadRequest("The order id is already taken.");
+    }
+    db.Categories.Add(category);
+    return Results.Created($"/users/{category.Id}", category);
+    });
+
+app.MapPut("/category/{id}", (int id, Category updatedCategory) => {
+    var category = db.Categories.FirstOrDefault(c => c.Id == id);
+    if (category is null) return Results.NotFound("The order was not found");
+    category.Id = updatedCategory.Id;
+    return Results.Ok();
+    });
+
+app.MapDelete("/category/{id}", (int id) => {
+    var category = db.Categories.FirstOrDefault(c => c.Id == id);
+
+    db.Categories.Remove(category);
+    return Results.Ok(id);
+    });
 
 app.Run(); 
