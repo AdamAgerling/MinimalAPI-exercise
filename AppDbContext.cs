@@ -1,5 +1,4 @@
-﻿using Api_project.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Api_project
 {
