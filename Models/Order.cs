@@ -1,8 +1,6 @@
 public class Order {
-    public int Id;
-
-    public int UserId;
-
-    public List<Product>? Products;
+    public int Id { get; set; }
+    public int UserId { get; set; }
+    public List<Product>? Products { get; set; }
 
 }

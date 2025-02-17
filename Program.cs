@@ -31,7 +31,7 @@ if (app.Environment.IsDevelopment())
 
 // Users
 app.MapGet("/users", () => "Hello World!");
-app.MapGet("/users/{id}", (int id) => "Hello World!");
+app.MapGet("/users/{id}", (int Guid) => "Hello World!");
 
 app.MapPost("/users", (User user) => {
     if (db.Users.Any(u => u.Id == user.Id))
