@@ -31,7 +31,7 @@ if (app.Environment.IsDevelopment())
 
 // Users
 app.MapGet("/users", () => "Hello World!");
-app.MapGet("/users/{id}", (int Guid) => "Hello World!");
+app.MapGet("/users/{id}", (int id) => id);
 
 app.MapPost("/users", (User user) => {
     if (db.Users.Any(u => u.Id == user.Id))
@@ -57,10 +57,10 @@ app.MapDelete("/users/{id}", (int id) => {
     });
 
 //Product
-app.MapGet("/proucts", () => "Hello World!");
-app.MapGet("/proucts/{id}", (int id) => "Hello World!");
+app.MapGet("/products", () => "Hello World!");
+app.MapGet("/products/{id}", (int id) => "Hello World!");
 
-app.MapPost("/proucts", (Product product) => {
+app.MapPost("/products", (Product product) => {
     if(db.Products.Any(p => p.Id == product.Id)) 
     {
         return Results.BadRequest("The product id is already taken.");
