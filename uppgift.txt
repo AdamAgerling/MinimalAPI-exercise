@@ -1,0 +1,28 @@
+Uppgift:
+1. Skapa ett nytt ASP.NET Core Minimal API-projekt via dotnet CLI eller Visual
+
+Studios Wizard
+2. Definiera fyra resurser, t.ex.:
+a. User
+b. Product
+c. Order
+d. Category
+
+3. Lägg till CRUD-endpoints för varje resurs med MapGet, MapPost, MapPut och
+MapDelete.
+
+4. Skapa en klass som representerar varje enskild resurs (t.ex. En User-klass)
+
+5. Använd en lista som "databas-tabell" och implementera enkel logik för att
+lägga till, uppdatera och ta bort objekt i de endpoints som skall hantera detta.
+
+6. Testa ert eget API i Swagger, Postman eller motsvarande verktyg.
+
+7. När ni är klara, byt API med ett annat par och testa av deras API via Swagger,
+Postman eller motsvarande verktyg.
+
+a. Fungerar allt som ni förväntar er?
+
+b. Är något otydligt?
+
+c. Vad händer om ni skickar in ogiltig data till någon route?
