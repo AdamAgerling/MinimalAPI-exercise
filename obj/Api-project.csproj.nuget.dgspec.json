@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\AdamAgerling-JSU21GB\\Desktop\\Webbutveckling C#\\Api-project\\Api-project.csproj": {}
+    "C:\\Programmering\\.net-utvecklare\\NET24-Webbutveckling\\MinimalAPI-exercise\\Api-project.csproj": {}
   },
   "projects": {
-    "C:\\Users\\AdamAgerling-JSU21GB\\Desktop\\Webbutveckling C#\\Api-project\\Api-project.csproj": {
+    "C:\\Programmering\\.net-utvecklare\\NET24-Webbutveckling\\MinimalAPI-exercise\\Api-project.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\AdamAgerling-JSU21GB\\Desktop\\Webbutveckling C#\\Api-project\\Api-project.csproj",
+        "projectUniqueName": "C:\\Programmering\\.net-utvecklare\\NET24-Webbutveckling\\MinimalAPI-exercise\\Api-project.csproj",
         "projectName": "Api-project",
-        "projectPath": "C:\\Users\\AdamAgerling-JSU21GB\\Desktop\\Webbutveckling C#\\Api-project\\Api-project.csproj",
-        "packagesPath": "C:\\Users\\AdamAgerling-JSU21GB\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\AdamAgerling-JSU21GB\\Desktop\\Webbutveckling C#\\Api-project\\obj\\",
+        "projectPath": "C:\\Programmering\\.net-utvecklare\\NET24-Webbutveckling\\MinimalAPI-exercise\\Api-project.csproj",
+        "packagesPath": "C:\\Users\\linde\\.nuget\\packages\\",
+        "outputPath": "C:\\Programmering\\.net-utvecklare\\NET24-Webbutveckling\\MinimalAPI-exercise\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\AdamAgerling-JSU21GB\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\linde\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -38,13 +42,18 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
-        }
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.2, )"
+            },
             "NSwag.AspNetCore": {
               "target": "Package",
               "version": "[14.2.0, )"
@@ -69,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
