@@ -1,0 +1,38 @@
+del1 – Skapa Tjänstelagret med Gränssnitt
+Bryt ut logiken för kundhantering och bokningshantering i separata tjänsteklasser i
+respektive microservice.
+
+
+1. CustomerService-projektet:
+Skapa ett gränssnitt ICustomerRepository med metoder för att hantera kunder:
+public interface ICustomerRepository
+{
+ IEnumerable<Customer> GetAll();
+ Customer? GetById(int id);
+ void Add(Customer customer);
+ void Update(Customer customer);
+ void Delete(int id);
+}
+public class CustomerRepository : ICustomerRepository
+{
+ private readonly List<Customer> _customers = new()
+ {
+ new Customer(1, "Alice", "alice@example.com"),
+ new Customer(2, "Bob", "bob@example.com"),
+ new Customer(3, "Charlie", "charlie@example.com")
+ };
+ public IEnumerable<Customer> GetAll() => _customers;
+ ...
+}
+Implementera gränssnittet i en klass CustomerRepository som använder en lista som
+simulerad databas.
+
+
+2. BookingService-projektet:
+Skapa ett gränssnitt IBookingRepository med motsvarande metoder.
+Implementera BookingRepository med en lista som simulerad databas
+Del 2 – Registrera Repository-klasser med Dependency Injection
+• I Program.cs i respektive microservice-projekt, registrera de nyskapade
+repository-klasserna i DI-containern
+• Injicera dessa i respektive route-handler som behöver dem och byt ut den
+tidigare hanteringen av listor
