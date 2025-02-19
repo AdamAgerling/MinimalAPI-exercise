@@ -1,6 +1,7 @@
 using Api_project;
 using Microsoft.EntityFrameworkCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
@@ -10,6 +11,7 @@ builder.Services.AddOpenApiDocument(config =>
     config.Title = "MinimalAPI v1";
     config.Version = "v1";
 });
+
 builder.Services.AddDbContext<AppDbContext>();
 
 var app = builder.Build();
@@ -26,13 +28,14 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// Users
+//Users GET ALL
 app.MapGet("/users", async (AppDbContext db) => 
 {
     var users = await db.Users.ToListAsync();
     return Results.Ok(users);
 });
 
+//Users GET BY ID
 app.MapGet("/users/{id}", async (int id, AppDbContext db) => 
 {
     var user = await db.Users.FindAsync(id);
@@ -43,6 +46,7 @@ app.MapGet("/users/{id}", async (int id, AppDbContext db) =>
     
 });
 
+//Users POST
 app.MapPost("/users", async (User user, AppDbContext db) => 
 {
     if (await db.Users.AnyAsync(u => u.Id == user.Id))
@@ -56,6 +60,7 @@ app.MapPost("/users", async (User user, AppDbContext db) =>
     return Results.Created($"/users/{user.Id}", user);
     });
 
+//User PUT
 app.MapPut("/users/{id}", async (int id, User updatedUser, AppDbContext db) => 
 {
     if (updatedUser is null || string.IsNullOrWhiteSpace(updatedUser.Name))
@@ -76,6 +81,7 @@ app.MapPut("/users/{id}", async (int id, User updatedUser, AppDbContext db) =>
     return Results.Ok(user); 
 });
 
+//Users DELETE
 app.MapDelete("/users/{id}", async (int id, AppDbContext db) => 
 {
     var user = await db.Users.FindAsync(id);
@@ -90,12 +96,13 @@ app.MapDelete("/users/{id}", async (int id, AppDbContext db) =>
     return Results.Ok(id);
 });
 
-//Products
+//Products GET ALL
 app.MapGet("/products", async (AppDbContext db) => 
 {  
     return await db.Products.ToListAsync();
 });
 
+//Products GET BY ID
 app.MapGet("/products/{id}", async (int id, AppDbContext db) => 
 {
     var product = await db.Products.FindAsync(id);
@@ -104,6 +111,7 @@ app.MapGet("/products/{id}", async (int id, AppDbContext db) =>
     : Results.NotFound($"Product with ID {id} not found.");
 });
 
+//Products POST
 app.MapPost("/products", async (Product product, AppDbContext db) => 
 {
     if( await db.Products.AnyAsync(p => p.Id == product.Id)) 
@@ -117,6 +125,7 @@ app.MapPost("/products", async (Product product, AppDbContext db) =>
     return Results.Created($"/users/{product.Id}", product);
 });
 
+//Products PUT
 app.MapPut("/product/{id}", async (int id, Product updatedProduct, AppDbContext db) => 
 {
     var product = await db.Products.FindAsync(id);
@@ -134,6 +143,7 @@ app.MapPut("/product/{id}", async (int id, Product updatedProduct, AppDbContext 
     return Results.Ok(product);
 });
 
+//Products DELETE
 app.MapDelete("/product/{id}", async (int id, AppDbContext db) => 
 {
     var product = await db.Products.FindAsync(id);
@@ -148,12 +158,13 @@ app.MapDelete("/product/{id}", async (int id, AppDbContext db) =>
     return Results.Ok(id);
     });
 
-//Orders
+//Orders GET ALLL
 app.MapGet("/orders", async (AppDbContext db) => 
 {  
     return await db.Orders.ToListAsync();
 });
 
+//Orders GET BY ID
 app.MapGet("/orders/{id}", async (int id, AppDbContext db) => 
 { 
     var product = await db.Orders.FindAsync(id);
@@ -163,6 +174,7 @@ app.MapGet("/orders/{id}", async (int id, AppDbContext db) =>
     : Results.NotFound($"Order-id {id} not found");
 });
 
+//Orders POST
 app.MapPost("/orders", async (Order order, AppDbContext db) => 
 {
     if(await db.Orders.AnyAsync(o => o.Id == order.Id)) 
@@ -176,6 +188,7 @@ app.MapPost("/orders", async (Order order, AppDbContext db) =>
     return Results.Created($"/users/{order.Id}", order);
 });
 
+//Orders PUT
 app.MapPut("/orders/{id}", async (int id, Order updatedOrder, AppDbContext db) => 
 {
     if (updatedOrder is null || updatedOrder.Products is null || !updatedOrder.Products.Any())
@@ -199,6 +212,7 @@ app.MapPut("/orders/{id}", async (int id, Order updatedOrder, AppDbContext db) =
     return Results.Ok(order);
 });
 
+//Orders DELETE
 app.MapDelete("/orders/{id}", async (int id, AppDbContext db) => 
 {
     var order = await db.Orders.FindAsync(id);
@@ -213,12 +227,13 @@ app.MapDelete("/orders/{id}", async (int id, AppDbContext db) =>
     return Results.Ok(id);
 });
 
-//Category
+//Categories GET ALL
 app.MapGet("/categories", async (AppDbContext db) => 
 {  
     return await db.Categories.ToListAsync();
 });
 
+//Categories GET BY ID
 app.MapGet("/categories/{id}", async (int id, AppDbContext db) => 
 { 
     var category = await db.Categories.FindAsync(id);
@@ -228,6 +243,7 @@ app.MapGet("/categories/{id}", async (int id, AppDbContext db) =>
     : Results.NotFound($"Category id {id} not found");
 });
 
+//Categories POST
 app.MapPost("/categories", async (Category category, AppDbContext db) => 
 {
     if(await db.Categories.AnyAsync(c => c.Id == category.Id)) 
@@ -241,7 +257,8 @@ app.MapPost("/categories", async (Category category, AppDbContext db) =>
     return Results.Created($"/users/{category.Id}", category);
 });
 
-app.MapPut("/category/{id}", async (int id, Category updatedCategory, AppDbContext db) => 
+//Categories PUT
+app.MapPut("/categories/{id}", async (int id, Category updatedCategory, AppDbContext db) => 
 {
     if (updatedCategory is null || string.IsNullOrWhiteSpace(updatedCategory.Name))
     {
@@ -260,7 +277,8 @@ app.MapPut("/category/{id}", async (int id, Category updatedCategory, AppDbConte
     return Results.Ok(category); 
 });
 
-app.MapDelete("/category/{id}", async (int id, AppDbContext db) => 
+//Categories DELETE
+app.MapDelete("/categories/{id}", async (int id, AppDbContext db) => 
 {
     var category = await db.Categories.FindAsync(id);
 
@@ -274,5 +292,6 @@ app.MapDelete("/category/{id}", async (int id, AppDbContext db) =>
 
     return Results.Ok(id);
 });
+
 
 app.Run(); 
